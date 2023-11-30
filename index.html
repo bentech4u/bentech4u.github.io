@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Motivational Quotes</title>
+<style>
+  body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f3f4f6;
+    font-family: Arial, sans-serif;
+  }
+  #quote-container {
+    text-align: center;
+    padding: 24px;
+    max-width: 1000px;
+    background-color: white;
+    margin: auto;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  #quote {
+    font-size: 3em;
+    color: #333;
+    margin-bottom: 0.5em;
+  }
+  #author {
+    font-size: 2em;
+    color: #555;
+    margin-bottom: 1em;
+  }
+  #new-quote {
+    font-size: 1.5em;
+    padding: 10px 20px;
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  #new-quote:hover {
+    background-color: #4cae4c;
+  }
+</style>
+</head>
+<body>
+<div id="quote-container">
+  <div id="quote">"Life isn’t about getting and having, it’s about giving and being."</div>
+  <div id="author">- Kevin Kruse</div>
+  <button id="new-quote" onclick="displayNewQuote()">New Quote</button>
+</div>
+<script>
+let quotes = [];
+
+function fetchQuotes() {
+  // Assuming the quotes.json file is hosted at the root of the server in the same directory as the HTML file
+  fetch('quotes.json')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      quotes = data.quotes;
+      displayNewQuote();
+    })
+    .catch(error => {
+      console.error('There has been a problem with your fetch operation:', error);
+    });
+}
+
+function displayNewQuote() {
+  const quoteIndex = Math.floor(Math.random() * quotes.length);
+  const quote = quotes[quoteIndex];
+  document.getElementById('quote').textContent = '"' + quote.quote + '"';
+  document.getElementById('author').textContent = '- ' + quote.author;
+}
+
+// Change quote every 30 seconds
+setInterval(displayNewQuote, 30000);
+
+// Fetch quotes and initialize with a random quote on page load
+window.onload = fetchQuotes;
+</script>
+</body>
+</html>
