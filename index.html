@@ -58,6 +58,19 @@
 <script>
 let quotes = [];
 
+let backgroundImages = [
+  'images/consolidated-statement-graphic1.png',
+  'images/graphic2.png',
+  'images/graphic-9.17069157.png',
+  'images/graphics-2.png',
+  'images/graphics-3.png',
+  'images/graphics-4.png',
+  'images/graphics-5.png',
+  'images/graphics-6.png',
+  'images/graphics-7.png'
+];
+
+
 function fetchQuotes() {
   // Assuming the quotes.json file is hosted at the root of the server in the same directory as the HTML file
   fetch('quotes.json')
@@ -81,6 +94,13 @@ function displayNewQuote() {
   const quote = quotes[quoteIndex];
   document.getElementById('quote').textContent = '"' + quote.quote + '"';
   document.getElementById('author').textContent = '- ' + quote.author;
+
+    // Set a random background image
+    const backgroundImageIndex = Math.floor(Math.random() * backgroundImages.length);
+  document.body.style.backgroundImage = 'url(' + backgroundImages[backgroundImageIndex] + ')';
+  document.body.style.backgroundSize = 'cover';
+  document.body.style.backgroundPosition = 'center center';
+  document.body.style.backgroundRepeat = 'no-repeat';
 }
 
 // Change quote every 30 seconds
